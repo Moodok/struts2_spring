@@ -29,7 +29,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             List<GrantedAuthority> grantedAuthorities = user.getRoles().stream()
                     .map(SimpleGrantedAuthority::new)
                     .collect(Collectors.toList());
-            return new UsernamePasswordAuthenticationToken(name, password, grantedAuthorities);
+            return new UsernamePasswordAuthenticationToken(user, password, grantedAuthorities);
         }
         return null;
     }

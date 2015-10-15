@@ -8,7 +8,10 @@
 </head>
 <body>
 <p>
-    Message <b><c:out value="${message}"/></b>
+    Message
+    ${user}
+    <sec:authentication property="principal.name"/>
+    <sec:authentication property="principal.roles[0]"/>
 </p>
 
 <p>

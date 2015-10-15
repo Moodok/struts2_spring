@@ -7,15 +7,17 @@
              http://www.springframework.org/schema/security/spring-security.xsd">
 
     <http auto-config="true">
+        <access-denied-handler ref="customAccessDeniedHandler"/>
 
-        <intercept-url pattern="/login" access="permitAll"/>
+        <intercept-url pattern="/loginPage" access="permitAll"/>
+        <intercept-url pattern="/css/**" access="permitAll"/>
         <intercept-url pattern="/**" access="hasRole('USER')"/>
 
         <form-login
-                login-page="/login"
+                login-page="/loginPage"
                 default-target-url="/home"
-                authentication-failure-url="/login?result=error"/>
-        <logout logout-success-url="/login?result=logout"/>
+                authentication-failure-url="/loginPage?result=error"/>
+        <logout logout-success-url="/loginPage?result=logout"/>
 
     </http>
 
