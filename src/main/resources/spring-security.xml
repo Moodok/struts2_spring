@@ -9,9 +9,13 @@
     <http auto-config="true" access-decision-manager-ref="customAccessDecisionManager">
         <access-denied-handler ref="customAccessDeniedHandler"/>
 
-        <intercept-url pattern="/loginPage" access="permitAll"/>
         <intercept-url pattern="/css/**" access="permitAll"/>
-        <intercept-url pattern="/userEdit**" access="checkMine()"/>
+        <intercept-url pattern="/js/**" access="permitAll"/>
+        <intercept-url pattern="/fonts/**" access="permitAll"/>
+
+        <intercept-url pattern="/loginPage" access="permitAll"/>
+        <intercept-url pattern="/userEditAction" access="checkById('id') or hasRole('ADMIN')"/>
+        <intercept-url pattern="/userEdit**" access="checkById('userId') or hasRole('ADMIN')"/>
         <intercept-url pattern="/**" access="hasRole('USER')"/>
 
         <form-login

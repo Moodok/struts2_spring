@@ -11,8 +11,8 @@ public class CustomSecurityExpressionRoot extends WebSecurityExpressionRoot {
         super(a, fi);
     }
 
-    public boolean checkMine() {
-        String userId = request.getParameter("userId");
+    public boolean checkById(String id) {
+        String userId = request.getParameter(id);
         return isAuthenticated() && String.valueOf(((User) getPrincipal()).getId()).equals(userId);
     }
 

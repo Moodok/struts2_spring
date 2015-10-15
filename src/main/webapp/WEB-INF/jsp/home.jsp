@@ -3,12 +3,11 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="<s:url value="/css/bootstrap.min.css"/>">
 <link rel="stylesheet" href="<s:url value="/css/style.css"/>">
 
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+<script src="<c:url value="/js/jquery-1.11.3.min.js"/>"></script>
+<script src="<c:url value="/js/bootstrap.min.js"/>"></script>
 
 <html>
 <head>
@@ -29,6 +28,7 @@
             <th>Name</th>
             <th>Email</th>
             <th>Login</th>
+            <th>Roles</th>
             <th>Edit</th>
             <th>Remove</th>
         </tr>
@@ -48,6 +48,9 @@
                         ${user.login}
                 </td>
                 <td>
+                        ${user.roles}
+                </td>
+                <td>
                     <sec:authorize
                             access="hasRole('ROLE_ADMIN') or
                             hasRole('ROLE_USER') and principal.id == ${user.id}">
@@ -61,15 +64,6 @@
         </c:forEach>
     </table>
 
-    <sec:authorize access="hasRole('ROLE_ADMIN') and hasRole('ROLE_USER')">
-        <p>Must have ROLE_ADMIN and ROLE_USER</p>
-    </sec:authorize>
-    <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-        <p>Must have ROLE_ADMIN or ROLE_USER</p>
-    </sec:authorize>
-    <sec:authorize access="!hasAnyRole('ROLE_ADMIN','ROLE_USER')">
-        <p>Must not have ROLE_ADMIN or ROLE_USER</p>
-    </sec:authorize>
 </div>
 </body>
 </html>

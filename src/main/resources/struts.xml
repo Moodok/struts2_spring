@@ -6,6 +6,7 @@
 <struts>
 
     <package name="lab" namespace="/" extends="struts-default">
+        <default-action-ref name="home"/>
 
         <action name="home" class="homeAction">
             <result name="success">WEB-INF/jsp/home.jsp</result>
@@ -15,9 +16,14 @@
             <result name="success">/WEB-INF/jsp/login.jsp</result>
         </action>
 
-        <action name="userEdit" class="userEditAction">
+        <action name="userEdit" class="userEditPageAction">
             <result name="success">/WEB-INF/jsp/user_edit.jsp</result>
             <result name="input">/WEB-INF/jsp/404.jsp</result>
+        </action>
+
+        <action name="userEditAction" class="userEditAction">
+            <result name="success" type="redirect">home</result>
+            <result name="input">/WEB-INF/jsp/user_edit.jsp</result>
         </action>
 
         <action name="">

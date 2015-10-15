@@ -2,20 +2,28 @@ package ua.nure.melnyk.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.struts2.interceptor.ParameterAware;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import ua.nure.melnyk.entities.User;
 import ua.nure.melnyk.services.UserService;
 
+import java.util.Map;
+
 import static org.apache.commons.lang3.StringUtils.isEmpty;
+import static org.apache.commons.lang3.math.NumberUtils.isDigits;
 
 @Component
-public class UserEditAction extends ActionSupport implements ModelDriven<User> {
+public class UserEditPageAction extends ActionSupport implements ModelDriven<User> {
 
     @Autowired
     private UserService userService;
 
     private User user = new User();
+
+    private String userId;
 
     @Override
     public User getModel() {
@@ -24,28 +32,29 @@ public class UserEditAction extends ActionSupport implements ModelDriven<User> {
 
     @Override
     public String execute() throws Exception {
+        long userId = Long.parseLong(getUserId());
+        user = userService.getUserById(userId);
         if (user == null)
             return INPUT;
-        userService.updateUser(user);
         return SUCCESS;
     }
 
     @Override
     public void validate() {
         clearActionErrors();
-        clearFieldErrors();
+        try {
+            Long.parseLong(getUserId());
+        } catch (NumberFormatException ex) {
+            addActionError("id.invalid");
+        }
+    }
 
-        if (isEmpty(user.getLogin()) || user.getLogin().length() < 5)
-            addFieldError("login", getText("login.short"));
+    public String getUserId() {
+        return userId;
+    }
 
-        if (isEmpty(user.getPassword()) || user.getPassword().length() < 3)
-            addFieldError("password", getText("password.sort"));
-
-        if (isEmpty(user.getEmail()) || !user.getEmail().contains("@"))
-            addFieldError("email", getText("email.invalid"));
-
-        if (isEmpty(user.getName()))
-            addFieldError("name", getText("name.empty"));
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
 }

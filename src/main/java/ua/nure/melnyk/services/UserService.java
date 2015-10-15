@@ -25,8 +25,24 @@ public class UserService {
                 .findFirst().orElseGet(() -> null);
     }
 
+    public User getUserById(long id) {
+        return users.stream()
+                .filter(user -> user.getId() == id)
+                .findFirst().orElseGet(() -> null);
+    }
+
     public List<User> getUsers() {
         return users;
+    }
+
+    public void updateUser(User user) {
+        User userById = getUserById(user.getId());
+        if (userById == null)
+            return;
+        userById.setEmail(user.getEmail());
+        userById.setLogin(user.getLogin());
+        userById.setName(user.getName());
+        userById.setPassword(user.getPassword());
     }
 
 }
