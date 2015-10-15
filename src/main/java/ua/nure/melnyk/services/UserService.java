@@ -14,10 +14,9 @@ public class UserService {
 
     private List<User> users = new ArrayList<>();
 
-
     public UserService() {
-        users.add(new User("user", "user", "USERNAME", Arrays.asList("ROLE_USER")));
-        users.add(new User("admin", "admin", "ADMINNAME", Arrays.asList("ROLE_ADMIN")));
+        users.add(new User("user", "user", "user@email", "USERNAME", Arrays.asList("ROLE_USER")));
+        users.add(new User("admin", "admin", "admin@email", "ADMINNAME", Arrays.asList("ROLE_USER", "ROLE_ADMIN")));
     }
 
     public User getUserByLogin(String login) {
@@ -26,5 +25,8 @@ public class UserService {
                 .findFirst().orElseGet(() -> null);
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
 
 }

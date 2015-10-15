@@ -15,17 +15,14 @@
             <result name="success">/WEB-INF/jsp/login.jsp</result>
         </action>
 
-        <!--
-        Stub to prevent logging
-        'org.apache.struts2.components.ServletUrlRenderer.warn No configuration found for the specified action:
-        'login' in namespace: '/'.
-        Form action defaulting to 'action' attribute's literal value.'
-        /login    is spring security default url to send login:password params
-        -->
-        <action name="login">
-            <result>/WEB-INF/jsp/login.jsp</result>
+        <action name="userEdit" class="userEditAction">
+            <result name="success">/WEB-INF/jsp/user_edit.jsp</result>
+            <result name="input">/WEB-INF/jsp/404.jsp</result>
         </action>
 
+        <action name="">
+            <result type="redirect">home</result>
+        </action>
     </package>
 
 
