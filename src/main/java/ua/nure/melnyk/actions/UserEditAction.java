@@ -3,13 +3,16 @@ package ua.nure.melnyk.actions;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 import ua.nure.melnyk.entities.User;
 import ua.nure.melnyk.services.UserService;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 @Component
+@Scope(WebApplicationContext.SCOPE_REQUEST)
 public class UserEditAction extends ActionSupport implements ModelDriven<User> {
 
     @Autowired
@@ -32,9 +35,6 @@ public class UserEditAction extends ActionSupport implements ModelDriven<User> {
 
     @Override
     public void validate() {
-        clearActionErrors();
-        clearFieldErrors();
-
         if (isEmpty(user.getLogin()) || user.getLogin().length() < 5)
             addFieldError("login", getText("login.short"));
 

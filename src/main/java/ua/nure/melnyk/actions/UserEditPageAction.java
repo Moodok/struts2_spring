@@ -2,20 +2,15 @@ package ua.nure.melnyk.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.struts2.interceptor.ParameterAware;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 import ua.nure.melnyk.entities.User;
 import ua.nure.melnyk.services.UserService;
 
-import java.util.Map;
-
-import static org.apache.commons.lang3.StringUtils.isEmpty;
-import static org.apache.commons.lang3.math.NumberUtils.isDigits;
-
 @Component
+@Scope(WebApplicationContext.SCOPE_REQUEST)
 public class UserEditPageAction extends ActionSupport implements ModelDriven<User> {
 
     @Autowired
@@ -41,7 +36,6 @@ public class UserEditPageAction extends ActionSupport implements ModelDriven<Use
 
     @Override
     public void validate() {
-        clearActionErrors();
         try {
             Long.parseLong(getUserId());
         } catch (NumberFormatException ex) {
