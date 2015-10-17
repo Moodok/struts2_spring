@@ -1,7 +1,6 @@
 package ua.nure.melnyk.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -11,32 +10,17 @@ import ua.nure.melnyk.services.UserService;
 
 @Component
 @Scope(WebApplicationContext.SCOPE_REQUEST)
-public class UserEditPageAction extends ActionSupport implements ModelDriven<User> {
-
-    protected String postFormUrl = "userEditAction";
-
-    public String getPostFormUrl() {
-        return postFormUrl;
-    }
+public class UserDeleteAction extends ActionSupport {
 
     @Autowired
     private UserService userService;
 
-    private User user = new User();
-
     private String userId;
-
-    @Override
-    public User getModel() {
-        return user;
-    }
 
     @Override
     public String execute() throws Exception {
         long userId = Long.parseLong(getUserId());
-        user = userService.getUserById(userId);
-        if (user == null)
-            return INPUT;
+        userService.deleteUserById(userId);
         return SUCCESS;
     }
 

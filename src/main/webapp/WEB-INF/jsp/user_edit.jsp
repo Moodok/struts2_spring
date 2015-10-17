@@ -19,7 +19,7 @@
 <div class="container">
 
     <div class="col-md-5">
-        <form action="<c:url value="/userEditAction"/>" method="post" class="form-input">
+        <form action="<c:url value="${postFormUrl}"/>" method="post" class="form-input">
             <div class="form-group">
                 <s:label>Email address</s:label>
                 <s:textfield type="email" class="form-control" name="email" placeholder="Email" value="%{model.email}"/>
@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <s:label>Login</s:label>
-                <s:textfield type="input" class="form-control" name="login" placeholder="login" value="%{model.email}"/>
+                <s:textfield type="input" class="form-control" name="login" placeholder="login" value="%{model.login}"/>
             </div>
             <s:textfield type="hidden" class="form-control" name="id"  value="%{model.id}"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

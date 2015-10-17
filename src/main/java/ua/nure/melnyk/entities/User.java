@@ -5,8 +5,6 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class User {
 
-    private static final AtomicLong ATOMIC_LONG = new AtomicLong();
-
     private long id;
     private String login;
     private String password;
@@ -17,13 +15,13 @@ public class User {
     public User() {
     }
 
-    public User(String login, String password, String email, String name, List<String> roles) {
+    public User(long id, String login, String password, String email, String name, List<String> roles) {
         this.login = login;
         this.password = password;
         this.email = email;
         this.name = name;
         this.roles = roles;
-        this.id = ATOMIC_LONG.getAndIncrement();
+        this.id = id;
     }
 
     public long getId() {
@@ -85,4 +83,20 @@ public class User {
                 ", roles=" + roles +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return id == user.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
+    }
+
 }

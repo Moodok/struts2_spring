@@ -26,6 +26,16 @@
             <result name="input">/WEB-INF/jsp/user_edit.jsp</result>
         </action>
 
+        <action name="userAddAction" class="userAddAction">
+            <result name="success" type="redirect">home</result>
+            <result name="input">/WEB-INF/jsp/user_edit.jsp</result>
+        </action>
+
+        <action name="userDeleteAction" class="userDeleteAction">
+            <result name="success" type="redirect">home</result>
+            <result name="input" type="redirect">home</result>
+        </action>
+
         <action name="">
             <result type="redirect">home</result>
         </action>

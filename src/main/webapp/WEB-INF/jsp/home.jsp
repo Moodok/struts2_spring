@@ -18,9 +18,9 @@
 <jsp:include page="header.jsp"/>
 
 <div class="container">
-
-    Message
-
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <a href="<s:url value="userAddAction"/>" class="btn btn-success">Add new user</a>
+    </sec:authorize>
     <table class="table">
         <thead>
         <tr>
@@ -58,7 +58,11 @@
                     </sec:authorize>
                 </td>
                 <td>
-                    <a href="" class="btn btn-danger">Delete</a>
+                    <sec:authorize
+                            access="hasRole('ROLE_ADMIN') or
+                            hasRole('ROLE_USER') and principal.id == ${user.id}">
+                        <a href="<c:url value="/userDeleteAction?userId=${user.id}"/>" class="btn btn-danger">Delete</a>
+                    </sec:authorize>
                 </td>
             </tr>
         </c:forEach>

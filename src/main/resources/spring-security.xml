@@ -14,8 +14,9 @@
         <intercept-url pattern="/fonts/**" access="permitAll"/>
 
         <intercept-url pattern="/loginPage" access="permitAll"/>
-        <intercept-url pattern="/userEditAction" access="checkById('id') or hasRole('ADMIN')"/>
+        <intercept-url pattern="/userEditAction**" access="checkById('id') or hasRole('ADMIN')"/>
         <intercept-url pattern="/userEdit**" access="checkById('userId') or hasRole('ADMIN')"/>
+        <intercept-url pattern="/userDeleteAction**" access="checkById('userId') or hasRole('ADMIN')"/>
         <intercept-url pattern="/**" access="hasRole('USER')"/>
 
         <form-login

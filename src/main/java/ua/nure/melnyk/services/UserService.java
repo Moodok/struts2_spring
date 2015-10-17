@@ -7,16 +7,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;
 
 @Component
 public class UserService {
 
+    private static final AtomicLong ATOMIC_LONG = new AtomicLong();
+    public static final List<String> ROLE_USER = Arrays.asList("ROLE_USER");
+
     private List<User> users = new ArrayList<>();
 
     public UserService() {
-        users.add(new User("user", "user", "user@email", "USERNAME", Arrays.asList("ROLE_USER")));
-        users.add(new User("admin", "admin", "admin@email", "ADMINNAME", Arrays.asList("ROLE_USER", "ROLE_ADMIN")));
+        users.add(new User(ATOMIC_LONG.getAndIncrement(), "user", "user", "user@email", "USERNAME", ROLE_USER));
+        users.add(new User(ATOMIC_LONG.getAndIncrement(), "admin", "admin", "admin@email", "ADMINNAME", Arrays.asList("ROLE_USER", "ROLE_ADMIN")));
     }
 
     public User getUserByLogin(String login) {
@@ -43,6 +47,18 @@ public class UserService {
         userById.setLogin(user.getLogin());
         userById.setName(user.getName());
         userById.setPassword(user.getPassword());
+    }
+
+    public void addUser(User user) {
+        user.setId(ATOMIC_LONG.getAndIncrement());
+        user.setRoles(ROLE_USER);
+        users.add(user);
+    }
+
+    public void deleteUserById(long userId) {
+        User userWithId = new User();
+        userWithId.setId(userId);
+        users.remove(userWithId);
     }
 
 }

@@ -15,14 +15,24 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 @Scope(WebApplicationContext.SCOPE_REQUEST)
 public class UserEditAction extends ActionSupport implements ModelDriven<User> {
 
-    @Autowired
-    private UserService userService;
+    protected String postFormUrl;
 
-    private User user = new User();
+    public String getPostFormUrl() {
+        return postFormUrl;
+    }
+
+    @Autowired
+    protected UserService userService;
+
+    protected User user = new User();
 
     @Override
     public User getModel() {
         return user;
+    }
+
+    public UserEditAction() {
+        postFormUrl = "userEditAction";
     }
 
     @Override
