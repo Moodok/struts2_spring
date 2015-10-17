@@ -1,4 +1,4 @@
-<%@ page pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
@@ -10,7 +10,7 @@
 
 <html>
 <head>
-    <title>Login</title>
+    <title><s:text name="login"/></title>
 </head>
 
 <body>
@@ -20,22 +20,30 @@
         <form action="<s:url value="/login"/>" method="post" name="loginForm" class="form-signin">
             <s:if test="%{result == 'error'}">
                 <div class="alert alert-danger" role="alert">
-                    Invalid User
+                    <s:text name="user.invalid"/>
                 </div>
             </s:if>
             <s:if test="%{result == '403'}">
                 <div class="alert alert-danger" role="alert">
-                    Access denied
+                    <s:text name="user.access.denied"/>
                 </div>
             </s:if>
-            <h3 class="form-signin-heading">Please Sign In</h3>
+            <h3 class="form-signin-heading"><s:text name="sing.in"/></h3>
             <hr class="colorgraph">
             <br>
 
-            <input type="text" name="username" class="form-control" placeholder="Username" required="" autofocus=""/>
-            <input type="password" name="password" class="form-control" placeholder="Password" required=""/>
+            <input type="text" name="username" class="form-control" placeholder="<s:text name="login"/>" required=""
+                   autofocus=""/>
+            <input type="password" name="password" class="form-control" placeholder="<s:text name="password"/>"
+                   required=""/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit">Login</button>
+            <button class="btn btn-lg btn-primary btn-block" name="Submit" type="Submit"><s:text name="login"/></button>
+
+            <br/>
+
+            <a href="?request_locale=en">English</a>
+            <a href="?request_locale=ru">Русский</a>
+
         </form>
     </div>
 </div>

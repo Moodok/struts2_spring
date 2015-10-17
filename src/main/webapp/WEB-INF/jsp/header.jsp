@@ -1,4 +1,4 @@
-<%@ page pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
@@ -24,12 +24,12 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="home">Home</a></li>
+                <li><a href="home"><s:text name="home"/></a></li>
             </ul>
 
             <form class="navbar-form navbar-right" action="<s:url value="/logout"/>" method="post">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <button type="submit" class="btn btn-default">Log out</button>
+                <button type="submit" class="btn btn-default"><s:text name="log.out"/></button>
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li>
