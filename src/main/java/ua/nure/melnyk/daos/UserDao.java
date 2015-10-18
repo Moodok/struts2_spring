@@ -1,18 +1,16 @@
-package ua.nure.melnyk.services;
+package ua.nure.melnyk.daos;
 
-import org.springframework.stereotype.Component;
 import ua.nure.melnyk.entities.User;
 
 import java.util.List;
 
-@Component
-public interface UserService {
+public interface UserDao {
+
+    List<User> getUsers();
 
     User getUserByLogin(String login);
 
     User getUserById(long id);
-
-    List<User> getUsers();
 
     void updateUser(User user);
 

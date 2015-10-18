@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
-import ua.nure.melnyk.entities.User;
 import ua.nure.melnyk.services.UserService;
 
 @Component

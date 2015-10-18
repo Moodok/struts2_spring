@@ -1,0 +1,52 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:db.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="poolName" value="springHikariCP"/>
+        <property name="connectionTestQuery" value="SELECT 1"/>
+        <property name="dataSourceClassName" value="${dataSourceClassName}"/>
+        <property name="maximumPoolSize" value="${hikari.maximumPoolSize}"/>
+        <property name="idleTimeout" value="${hikari.idleTimeout}"/>
+
+        <property name="dataSourceProperties">
+            <props>
+                <prop key="url">${dataSource.url}</prop>
+                <prop key="user">${dataSource.login}</prop>
+                <prop key="password">${dataSource.password}</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- HikariCP data source -->
+    <bean id="hikariDataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <constructor-arg ref="hikariConfig"/>
+    </bean>
+
+    <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
+        <property name="dataSource" ref="hikariDataSource"/>
+        <property name="changeLog" value="classpath:db-changelog.xml"/>
+    </bean>
+
+    <!-- MyBatis -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="hikariDataSource"/>
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+    </bean>
+
+    <bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="ua.nure.melnyk.daos.UserDao"/>
+    </bean>
+
+</beans>
+

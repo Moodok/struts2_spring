@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import ua.nure.melnyk.entities.User;
 import ua.nure.melnyk.services.UserService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
